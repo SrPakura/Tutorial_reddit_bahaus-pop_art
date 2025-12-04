@@ -494,10 +494,20 @@
         async function fetchAndRender(url, targetId, containerClass) {
             try {
                 const res = await fetch(url);
+                // Si el archivo no existe (404), borramos el contenedor y salimos
+                if (!res.ok) {
+                    const el = document.getElementById(targetId);
+                    if (el) el.remove();
+                    return;
+                }
                 const text = await res.text();
                 const html = marked.parse(text);
                 document.getElementById(targetId).innerHTML = `<div class="${containerClass}">${html}</div>`;
-            } catch (e) {}
+            } catch (e) {
+                // Si falla por otro motivo, también limpiamos
+                const el = document.getElementById(targetId);
+                if (el) el.remove();
+            }
         }
 
         // --- NAVEGACIÓN ---
@@ -517,7 +527,11 @@
         function nextSection() {
             let nextIndex = currentTab + 1;
             if (nextIndex >= config.sections.length) {
-                document.getElementById('conclusion-target').scrollIntoView({ behavior: 'smooth' });
+                // Comprobamos si la conclusión existe antes de hacer scroll
+                const conclusionEl = document.getElementById('conclusion-target');
+                if (conclusionEl) {
+                    conclusionEl.scrollIntoView({ behavior: 'smooth' });
+                }
             } else {
                 switchTab(nextIndex);
             }
