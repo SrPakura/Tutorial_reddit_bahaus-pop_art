@@ -373,6 +373,8 @@
             <div class="hero-visual">
                 <div class="shape-circle"></div>
                 <div class="shape-triangle"></div>
+                <!-- AQUÍ ESTÁ: EL ELEMENTO DECORATIVO "UPVOTE" RECUPERADO -->
+                <div style="position: absolute; font-size: 10rem; opacity: 0.2; font-weight: 900; color: var(--c-black);">Upvote</div>
             </div>
         </header>
     </div>
@@ -518,10 +520,10 @@
             if(sectionDivs[index]) sectionDivs[index].classList.add('active');
             currentTab = index;
             
+            // LOGICA MEJORADA DE SCROLL:
+            // Siempre que cambies de tab, te lleva al inicio del contenido
             const nav = document.querySelector('.nav-wrapper');
-            if (window.scrollY > nav.offsetTop) {
-                nav.scrollIntoView({ behavior: 'smooth' });
-            }
+            nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function nextSection() {
