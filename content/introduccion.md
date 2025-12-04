@@ -1,6 +1,6 @@
 ## 0\. Introducción
 
-Buenas tardes. Os voy a enseñar mi experiencia de 1 mes en Reddit, junto a estrategias avanzadas por si queréis usar Python y la API de Gemini para automatizar todo y no dar palo al agua. Además, tengo de copiloto a Gemini, que ha diseñado la web (porque a mí me da tic mandar un PDF en 2024\) y que va a corregirme si digo alguna barbaridad.  
+Buenas tardes. Os voy a enseñar mi experiencia de 1 mes en Reddit, junto a estrategias avanzadas por si queréis usar Python y la API de Gemini para automatizar todo y no dar un palo al agua. Además, tengo de copiloto a Gemini, que ha programado la web (porque a mí me da tic mandar un PDF en pleno big 2025\) y que va a corregirme si digo alguna barbaridad.  
 
 Lo he ordenado en categorías cronológicas para que paséis de personas normales a frikis, vírgenes, e incluso desarrolléis alergia al césped.  
 
