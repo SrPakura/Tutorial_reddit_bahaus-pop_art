@@ -11,8 +11,7 @@ Para que os hagáis una idea, esto es como los créditos sociales chinos. Hay do
 
 ### La Estrategia (Cómo farmear Karma)
 
-Al principio, no publiquéis hilos. Con poco karma, Reddit os tratará como spam y nadie verá vuestro post.  
-La clave son los comentarios.
+Al principio, no publiquéis hilos. Con poco karma, Reddit os tratará como spam y nadie verá vuestro post. La clave son los comentarios.
 
 1. Id a una comunidad grande de preguntas y respuestas (r/AskReddit, etc.).  
 2. Ordenad por **"Más recientes" (New)**.  
