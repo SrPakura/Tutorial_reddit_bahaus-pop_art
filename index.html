@@ -30,9 +30,9 @@
             background-image: var(--noise-bg); pointer-events: none; z-index: 9999;
         }
 
-        /* --- WRAPPER PARA PANTALLA COMPLETA (HERO + MARQUEE) --- */
+        /* --- WRAPPER PARA PANTALLA COMPLETA --- */
         .full-screen-wrapper {
-            height: 100vh; /* Ocupa el 100% de la altura de la ventana */
+            height: 100vh;
             display: flex;
             flex-direction: column;
             border-bottom: 5px solid var(--c-black);
@@ -49,17 +49,15 @@
             font-weight: 900;
             text-transform: uppercase;
             font-size: 1.1rem;
-            flex-shrink: 0; /* No se encoge */
+            flex-shrink: 0;
         }
 
         .marquee-text {
             display: inline-block;
-            animation: scroll-left 60s linear infinite; /* Velocidad ajustada */
+            animation: scroll-left 60s linear infinite;
         }
 
-        .marquee-text span {
-            margin-right: 200px; /* Separación pedida */
-        }
+        .marquee-text span { margin-right: 200px; }
 
         @keyframes scroll-left {
             0% { transform: translateX(0); }
@@ -68,7 +66,7 @@
 
         /* --- HERO --- */
         .hero {
-            flex-grow: 1; /* Ocupa todo el espacio restante */
+            flex-grow: 1;
             display: grid;
             grid-template-columns: 1fr 1fr;
             position: relative;
@@ -184,7 +182,7 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 4rem 2rem;
-            min-height: 50vh;
+            min-height: 40vh; /* Reducido un poco para que fluya mejor */
         }
 
         .intro-container {
@@ -198,14 +196,16 @@
             transform: rotate(-1deg);
         }
 
+        /* Estilo específico para la caja de conclusión */
         .conclusion-container {
             font-size: 1.3rem;
             padding: 2rem;
             border: 4px solid var(--c-black);
-            margin: 4rem auto;
+            margin: 0 auto 5rem auto; /* Margen abajo para separar del footer */
             max-width: 900px;
-            background: var(--c-cyan);
+            background: var(--c-cyan); /* Color distintivo */
             box-shadow: 10px 10px 0 var(--c-black);
+            transform: rotate(1deg);
         }
 
         .section-content { display: none; animation: slide-up 0.4s ease-out forwards; }
@@ -213,7 +213,6 @@
         @keyframes slide-up { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- ESTILOS MARKDOWN --- */
-        /* Títulos Rojos */
         .md-content h2 {
             font-size: 2.5rem;
             background: var(--c-red);
@@ -226,31 +225,10 @@
             font-weight: 900;
             border: 2px solid var(--c-black);
         }
-
-        /* Subtítulos */
-        .md-content h3 {
-            font-size: 1.8rem;
-            margin-top: 1.5rem;
-            border-bottom: 4px solid var(--c-yellow);
-            display: inline-block;
-        }
-
-        /* Texto normal */
-        .md-content p {
-            font-size: 1.25rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-
-        /* Listas */
-        .md-content ul, .md-content ol {
-            padding-left: 2rem;
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
+        .md-content h3 { font-size: 1.8rem; margin-top: 1.5rem; border-bottom: 4px solid var(--c-yellow); display: inline-block; }
+        .md-content p { font-size: 1.25rem; line-height: 1.7; margin-bottom: 1.5rem; }
+        .md-content ul, .md-content ol { padding-left: 2rem; margin-bottom: 1.5rem; font-size: 1.2rem; }
         .md-content li { margin-bottom: 0.8rem; }
-
-        /* Negrita (Amarillo) */
         .md-content strong {
             background: linear-gradient(120deg, var(--c-yellow) 0%, var(--c-yellow) 100%);
             background-repeat: no-repeat;
@@ -259,8 +237,6 @@
             padding: 0 2px;
             font-weight: 800;
         }
-
-        /* Bloques de Código */
         .md-content pre {
             background: var(--c-white);
             border: 3px solid var(--c-black);
@@ -269,35 +245,18 @@
             box-shadow: 8px 8px 0 var(--c-black);
             overflow-x: auto;
         }
-        .md-content code {
-            font-family: 'Courier New', monospace;
-            font-weight: 700;
-            color: var(--c-blue);
-        }
+        .md-content code { font-family: 'Courier New', monospace; font-weight: 700; color: var(--c-blue); }
+        .md-content a { color: var(--c-red); font-weight: 900; text-decoration: none; border-bottom: 3px solid var(--c-black); }
+        .md-content a:hover { background: var(--c-black); color: var(--c-white); }
 
-        /* Links */
-        .md-content a {
-            color: var(--c-red);
-            font-weight: 900;
-            text-decoration: none;
-            border-bottom: 3px solid var(--c-black);
+        /* --- BOTÓN SIGUIENTE SECCIÓN (FLOTANTE) --- */
+        .next-btn-container {
+            max-width: 900px;
+            margin: 0 auto 4rem auto;
+            padding: 0 2rem;
         }
-        .md-content a:hover {
-            background: var(--c-black);
-            color: var(--c-white);
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background: var(--c-black);
-            color: var(--c-white);
-            text-align: center;
-            padding: 5rem 1rem;
-            border-top: 10px solid var(--c-red);
-        }
-
         .btn-next {
-            display: block; width: 100%; padding: 20px; margin-top: 3rem;
+            display: block; width: 100%; padding: 20px;
             background: var(--c-white); border: 4px solid var(--c-black);
             font-weight: 900; font-size: 1.5rem; cursor: pointer;
             box-shadow: 8px 8px 0 var(--c-black); text-transform: uppercase;
@@ -309,12 +268,80 @@
             background: var(--c-black); color: var(--c-white);
         }
 
-        /* Modal y otros helpers */
+        /* --- FOOTER & SERRANITO --- */
+        footer {
+            background: var(--c-black);
+            color: var(--c-white);
+            text-align: center;
+            padding: 5rem 1rem;
+            border-top: 10px solid var(--c-red);
+        }
+
+        .btn-serranito {
+            background: var(--c-yellow);
+            color: var(--c-black);
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.5rem;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 6px 6px 0 var(--c-white);
+            transform: rotate(-2deg);
+            transition: 0.3s;
+            font-family: var(--font-main);
+            margin-top: 1.5rem;
+            border: 3px solid transparent; /* Para evitar saltos al añadir borde */
+        }
+        
+        .btn-serranito:hover {
+            transform: rotate(2deg) scale(1.1);
+            background: var(--c-red);
+            color: var(--c-white);
+            border: 3px solid var(--c-white);
+        }
+
         .watermark {
-            margin-top: 3rem; font-size: 1.2rem; font-weight: 900;
+            margin-top: 4rem; font-size: 1.2rem; font-weight: 900;
             letter-spacing: 2px; opacity: 0.7; text-transform: uppercase;
             color: var(--c-cyan); font-family: monospace; border: 2px dashed var(--c-cyan);
             display: inline-block; padding: 0.5rem 1rem; transform: rotate(-2deg);
+        }
+
+        /* --- MODAL (RECUPERADO) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        .modal-overlay.open { opacity: 1; pointer-events: all; }
+        
+        .modal-box {
+            background: var(--c-white);
+            border: 5px solid var(--c-black);
+            padding: 3rem;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 20px 20px 0 var(--c-cyan);
+            transform: scale(0.8) rotate(-5deg);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: var(--c-black);
+        }
+        .modal-overlay.open .modal-box { transform: scale(1) rotate(0deg); }
+        .modal-icon { font-size: 4rem; margin-bottom: 1rem; display: block; }
+        
+        .modal-btn {
+            margin-top: 2rem; padding: 10px 20px;
+            border: 3px solid var(--c-black); font-weight: 800;
+            cursor: pointer; background: var(--c-red); color: var(--c-white);
+            font-size: 1.1rem;
         }
 
         @media (max-width: 768px) {
@@ -328,6 +355,7 @@
 </head>
 <body>
 
+    <!-- 1. HEADER & HERO (Pantalla Completa) -->
     <div class="full-screen-wrapper">
         <div class="marquee-container">
             <div class="marquee-text" id="marquee-content">
@@ -339,7 +367,7 @@
             <div class="hero-text">
                 <h1>Guía de<br>Supervivencia<br><span style="color:var(--c-red)">Reddit</span></h1>
                 <div class="subtitle-box">
-                    DE NORMIE A REDDITOR EN 30 MINUTOS
+                    DE NORMIE A REDDITOR EN 30 DÍAS
                 </div>
             </div>
             <div class="hero-visual">
@@ -349,9 +377,12 @@
         </header>
     </div>
 
+    <!-- 2. INTRODUCCIÓN -->
     <div id="intro-target" class="md-content">
-        </div>
+        <!-- Se inyecta introduccion.md -->
+    </div>
 
+    <!-- 3. NAVEGACIÓN -->
     <nav class="nav-wrapper">
         <ul class="nav-tabs">
             <li class="tab-btn active" onclick="switchTab(0)">1. ¿Qué es?</li>
@@ -363,23 +394,46 @@
         </ul>
     </nav>
 
+    <!-- 4. CONTENIDO PRINCIPAL -->
     <main class="content-area md-content" id="main-container">
-        </main>
+        <!-- Se inyectan secciones 1-6 -->
+    </main>
 
-    <div id="conclusion-target" class="md-content">
-        </div>
-
-    <footer>
+    <!-- 5. BOTÓN SIGUIENTE SECCIÓN (Fuera del Footer) -->
+    <div class="next-btn-container">
         <button class="btn-next" id="btn-next-action" onclick="nextSection()">Siguiente Sección ➔</button>
+    </div>
+
+    <!-- 6. CONCLUSIÓN (Sección separada) -->
+    <div id="conclusion-target" class="md-content">
+        <!-- Se inyecta conclusion.md -->
+    </div>
+
+    <!-- 7. FOOTER (Con la broma recuperada) -->
+    <footer>
+        <h3 style="font-size: 2rem; margin-bottom: 1rem;">¿Te ha sido útil?</h3>
+        <p style="margin-bottom: 2rem; opacity: 0.8;">Cómprame un serranito (o un chalet en la playa)</p>
+        
+        <button class="btn-serranito" onclick="openModal()">DÓNAME UN EURO</button>
         
         <div style="margin-top: 4rem;">
             <div class="watermark">/// DESIGN BY SRPAKURA & GEMINI ///</div>
         </div>
     </footer>
 
+    <!-- 8. MODAL (Recuperado) -->
+    <div class="modal-overlay" id="serranitoModal" onclick="closeModal(event)">
+        <div class="modal-box">
+            <span class="modal-icon">🍻🥖</span>
+            <h2>¡ALTO AHÍ!</h2>
+            <p style="margin: 1.5rem 0; font-size: 1.2rem;">¿Me vas a invitar a un serranito?<br><strong>¡Yo te invito a una caña!</strong></p>
+            <p style="font-size: 1rem; opacity: 0.8;">(No aceptamos euros, solo buenas vibras y jamón del bueno)</p>
+            <button class="modal-btn" onclick="closeModalDirect()">¡Trato Hecho!</button>
+        </div>
+    </div>
+
     <script>
         // CONFIGURACIÓN DE ARCHIVOS
-        // Asegúrate de que los nombres de archivo sean EXACTOS a los que subas
         const config = {
             header: 'content/header.md',
             intro: 'content/introduccion.md',
@@ -397,84 +451,63 @@
         let currentTab = 0;
         const tabs = document.querySelectorAll('.tab-btn');
         const mainContainer = document.getElementById('main-container');
-        let sectionDivs = []; // Guardará referencia a los 6 divs
+        let sectionDivs = [];
 
-        // --- 1. CARGADOR DEL HEADER (Marquee) ---
+        // --- CARGADORES ---
         async function loadHeader() {
             try {
-                const response = await fetch(config.header);
-                if (!response.ok) throw new Error('Error header');
-                const text = await response.text();
-                
-                // Dividir por líneas y quitar vacías
+                const res = await fetch(config.header);
+                if(!res.ok) throw new Error();
+                const text = await res.text();
                 const lines = text.split('\n').filter(line => line.trim() !== '');
-                
                 const marqueeDiv = document.getElementById('marquee-content');
-                marqueeDiv.innerHTML = ''; // Limpiar "Cargando..."
-
-                // Creamos el HTML duplicado para el efecto loop infinito
+                
                 let htmlContent = '';
-                // Hacemos 2 pasadas para asegurar que llene la pantalla
                 for(let i=0; i<2; i++) { 
-                    lines.forEach(line => {
-                        htmlContent += `<span>${line.trim()}</span>`;
-                    });
+                    lines.forEach(line => { htmlContent += `<span>${line.trim()}</span>`; });
                 }
                 marqueeDiv.innerHTML = htmlContent;
-
-            } catch (e) { console.error("Fallo header:", e); }
+            } catch (e) { console.error("Error Header"); }
         }
 
-        // --- 2. CARGADOR DE CONTENIDO GENERAL ---
         async function loadAllContent() {
-            // A. Cargar Intro
+            // Intro y Conclusión con estilos de contenedor diferentes
             fetchAndRender(config.intro, 'intro-target', 'intro-container');
-            
-            // B. Cargar Conclusión
             fetchAndRender(config.conclusion, 'conclusion-target', 'conclusion-container');
 
-            // C. Cargar Secciones (Pestañas)
+            // Secciones
             for (let i = 0; i < config.sections.length; i++) {
                 try {
                     const res = await fetch(config.sections[i]);
                     const text = await res.text();
                     const html = marked.parse(text);
-                    
                     const div = document.createElement('div');
                     div.classList.add('section-content');
-                    if (i === 0) div.classList.add('active'); // Activar primera
+                    if (i === 0) div.classList.add('active');
                     div.innerHTML = html;
-                    
                     mainContainer.appendChild(div);
                     sectionDivs.push(div);
-                } catch (e) {
-                    console.error(`Error loading section ${i}`, e);
-                }
+                } catch (e) { console.error(`Error section ${i}`); }
             }
         }
 
-        // Helper para fetch simple
         async function fetchAndRender(url, targetId, containerClass) {
             try {
                 const res = await fetch(url);
                 const text = await res.text();
                 const html = marked.parse(text);
-                const target = document.getElementById(targetId);
-                target.innerHTML = `<div class="${containerClass}">${html}</div>`;
-            } catch (e) { console.error("Error loading " + url, e); }
+                document.getElementById(targetId).innerHTML = `<div class="${containerClass}">${html}</div>`;
+            } catch (e) {}
         }
 
-        // --- 3. LÓGICA DE PESTAÑAS ---
+        // --- NAVEGACIÓN ---
         function switchTab(index) {
             tabs.forEach(t => t.classList.remove('active'));
             tabs[index].classList.add('active');
-
             sectionDivs.forEach(s => s.classList.remove('active'));
             if(sectionDivs[index]) sectionDivs[index].classList.add('active');
-
             currentTab = index;
             
-            // Scroll suave a las pestañas si estamos abajo
             const nav = document.querySelector('.nav-wrapper');
             if (window.scrollY > nav.offsetTop) {
                 nav.scrollIntoView({ behavior: 'smooth' });
@@ -484,18 +517,28 @@
         function nextSection() {
             let nextIndex = currentTab + 1;
             if (nextIndex >= config.sections.length) {
-                // Si llegamos al final, scroll al footer o conclusión
                 document.getElementById('conclusion-target').scrollIntoView({ behavior: 'smooth' });
             } else {
                 switchTab(nextIndex);
             }
         }
 
-        // --- INICIAR ---
+        // --- LÓGICA DEL MODAL ---
+        function openModal() {
+            document.getElementById('serranitoModal').classList.add('open');
+        }
+        function closeModal(e) {
+            if (e.target.id === 'serranitoModal') {
+                document.getElementById('serranitoModal').classList.remove('open');
+            }
+        }
+        function closeModalDirect() {
+            document.getElementById('serranitoModal').classList.remove('open');
+        }
+
+        // INICIAR
         loadHeader();
         loadAllContent();
-
     </script>
 </body>
-
 </html>
