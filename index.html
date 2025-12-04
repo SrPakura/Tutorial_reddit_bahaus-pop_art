@@ -177,42 +177,33 @@
             box-shadow: 0 -5px 0 var(--c-red);
         }
 
-        /* --- CONTENEDORES DE TEXTO --- */
+        /* --- CONTENIDO --- */
         .content-area {
             max-width: 900px;
             margin: 0 auto;
-            padding: 0 2rem; /* Quitamos padding vertical para controlarlo individualmente */
+            padding: 4rem 2rem;
+            min-height: 40vh; /* Reducido un poco para que fluya mejor */
         }
 
-        /* INTRODUCCIÓN */
-        .intro-section {
-            padding: 4rem 2rem;
-        }
         .intro-container {
             font-size: 1.3rem;
             padding: 2rem;
             border: 4px solid var(--c-black);
+            margin: 4rem auto;
+            max-width: 900px;
             background: #fff;
             box-shadow: 10px 10px 0 var(--c-blue);
             transform: rotate(-1deg);
         }
 
-        /* PESTAÑAS (MAIN) */
-        .tabs-section {
-            min-height: 40vh;
-            padding: 4rem 2rem;
-        }
-
-        /* CONCLUSIÓN */
-        .conclusion-section {
-            padding: 2rem 2rem 6rem 2rem; /* Mucho padding abajo para separar del footer */
-            margin-top: 4rem; /* Separación del botón anterior */
-        }
+        /* Estilo específico para la caja de conclusión */
         .conclusion-container {
             font-size: 1.3rem;
             padding: 2rem;
             border: 4px solid var(--c-black);
-            background: var(--c-cyan);
+            margin: 0 auto 5rem auto; /* Margen abajo para separar del footer */
+            max-width: 900px;
+            background: var(--c-cyan); /* Color distintivo */
             box-shadow: 10px 10px 0 var(--c-black);
             transform: rotate(1deg);
         }
@@ -258,10 +249,10 @@
         .md-content a { color: var(--c-red); font-weight: 900; text-decoration: none; border-bottom: 3px solid var(--c-black); }
         .md-content a:hover { background: var(--c-black); color: var(--c-white); }
 
-        /* --- BOTÓN SIGUIENTE SECCIÓN --- */
+        /* --- BOTÓN SIGUIENTE SECCIÓN (FLOTANTE) --- */
         .next-btn-container {
             max-width: 900px;
-            margin: 0 auto;
+            margin: 0 auto 4rem auto;
             padding: 0 2rem;
         }
         .btn-next {
@@ -299,7 +290,7 @@
             transition: 0.3s;
             font-family: var(--font-main);
             margin-top: 1.5rem;
-            border: 3px solid transparent; 
+            border: 3px solid transparent; /* Para evitar saltos al añadir borde */
         }
         
         .btn-serranito:hover {
@@ -316,7 +307,7 @@
             display: inline-block; padding: 0.5rem 1rem; transform: rotate(-2deg);
         }
 
-        /* --- MODAL --- */
+        /* --- MODAL (RECUPERADO) --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -364,7 +355,7 @@
 </head>
 <body>
 
-    <!-- 1. HEADER & HERO -->
+    <!-- 1. HEADER & HERO (Pantalla Completa) -->
     <div class="full-screen-wrapper">
         <div class="marquee-container">
             <div class="marquee-text" id="marquee-content">
@@ -386,10 +377,10 @@
         </header>
     </div>
 
-    <!-- 2. INTRODUCCIÓN (Section separada) -->
-    <section class="content-area intro-section">
-        <div id="intro-target" class="md-content"></div>
-    </section>
+    <!-- 2. INTRODUCCIÓN -->
+    <div id="intro-target" class="md-content">
+        <!-- Se inyecta introduccion.md -->
+    </div>
 
     <!-- 3. NAVEGACIÓN -->
     <nav class="nav-wrapper">
@@ -403,22 +394,22 @@
         </ul>
     </nav>
 
-    <!-- 4. PESTAÑAS (Main content) -->
-    <main class="content-area tabs-section" id="main-container">
-        <!-- JS inyecta aquí -->
+    <!-- 4. CONTENIDO PRINCIPAL -->
+    <main class="content-area md-content" id="main-container">
+        <!-- Se inyectan secciones 1-6 -->
     </main>
 
-    <!-- 5. BOTÓN SIGUIENTE -->
+    <!-- 5. BOTÓN SIGUIENTE SECCIÓN (Fuera del Footer) -->
     <div class="next-btn-container">
         <button class="btn-next" id="btn-next-action" onclick="nextSection()">Siguiente Sección ➔</button>
     </div>
 
-    <!-- 6. CONCLUSIÓN (Section separada, fuera del main) -->
-    <section class="content-area conclusion-section">
-        <div id="conclusion-target" class="md-content"></div>
-    </section>
+    <!-- 6. CONCLUSIÓN (Sección separada) -->
+    <div id="conclusion-target" class="md-content">
+        <!-- Se inyecta conclusion.md -->
+    </div>
 
-    <!-- 7. FOOTER -->
+    <!-- 7. FOOTER (Con la broma recuperada) -->
     <footer>
         <h3 style="font-size: 2rem; margin-bottom: 1rem;">¿Te ha sido útil?</h3>
         <p style="margin-bottom: 2rem; opacity: 0.8;">Cómprame un serranito (o un chalet en la playa)</p>
@@ -430,7 +421,7 @@
         </div>
     </footer>
 
-    <!-- MODAL -->
+    <!-- 8. MODAL (Recuperado) -->
     <div class="modal-overlay" id="serranitoModal" onclick="closeModal(event)">
         <div class="modal-box">
             <span class="modal-icon">🍻🥖</span>
@@ -442,12 +433,17 @@
     </div>
 
     <script>
+        // CONFIGURACIÓN DE ARCHIVOS
         const config = {
             header: 'content/header.md',
             intro: 'content/introduccion.md',
             sections: [
-                'content/seccion1.md', 'content/seccion2.md', 'content/seccion3.md',
-                'content/seccion4.md', 'content/seccion5.md', 'content/seccion6.md'
+                'content/seccion1.md',
+                'content/seccion2.md',
+                'content/seccion3.md',
+                'content/seccion4.md',
+                'content/seccion5.md',
+                'content/seccion6.md'
             ],
             conclusion: 'content/conclusion.md'
         };
@@ -457,70 +453,90 @@
         const mainContainer = document.getElementById('main-container');
         let sectionDivs = [];
 
+        // --- CARGADORES ---
         async function loadHeader() {
             try {
                 const res = await fetch(config.header);
                 if(!res.ok) throw new Error();
                 const text = await res.text();
                 const lines = text.split('\n').filter(line => line.trim() !== '');
-                let html = '';
-                for(let i=0; i<2; i++) lines.forEach(l => html += `<span>${l.trim()}</span>`);
-                document.getElementById('marquee-content').innerHTML = html;
-            } catch (e) { console.error("Header Error"); }
+                const marqueeDiv = document.getElementById('marquee-content');
+                
+                let htmlContent = '';
+                for(let i=0; i<2; i++) { 
+                    lines.forEach(line => { htmlContent += `<span>${line.trim()}</span>`; });
+                }
+                marqueeDiv.innerHTML = htmlContent;
+            } catch (e) { console.error("Error Header"); }
         }
 
         async function loadAllContent() {
-            // Intro
+            // Intro y Conclusión con estilos de contenedor diferentes
             fetchAndRender(config.intro, 'intro-target', 'intro-container');
-            // Conclusion
             fetchAndRender(config.conclusion, 'conclusion-target', 'conclusion-container');
-            // Tabs
+
+            // Secciones
             for (let i = 0; i < config.sections.length; i++) {
                 try {
                     const res = await fetch(config.sections[i]);
-                    const html = marked.parse(await res.text());
+                    const text = await res.text();
+                    const html = marked.parse(text);
                     const div = document.createElement('div');
                     div.classList.add('section-content');
                     if (i === 0) div.classList.add('active');
                     div.innerHTML = html;
                     mainContainer.appendChild(div);
                     sectionDivs.push(div);
-                } catch (e) {}
+                } catch (e) { console.error(`Error section ${i}`); }
             }
         }
 
         async function fetchAndRender(url, targetId, containerClass) {
             try {
                 const res = await fetch(url);
-                const html = marked.parse(await res.text());
+                const text = await res.text();
+                const html = marked.parse(text);
                 document.getElementById(targetId).innerHTML = `<div class="${containerClass}">${html}</div>`;
             } catch (e) {}
         }
 
+        // --- NAVEGACIÓN ---
         function switchTab(index) {
             tabs.forEach(t => t.classList.remove('active'));
             tabs[index].classList.add('active');
             sectionDivs.forEach(s => s.classList.remove('active'));
             if(sectionDivs[index]) sectionDivs[index].classList.add('active');
             currentTab = index;
+            
             const nav = document.querySelector('.nav-wrapper');
-            if (window.scrollY > nav.offsetTop) nav.scrollIntoView({ behavior: 'smooth' });
+            if (window.scrollY > nav.offsetTop) {
+                nav.scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         function nextSection() {
             let nextIndex = currentTab + 1;
             if (nextIndex >= config.sections.length) {
-                // Scroll a la sección de conclusión
-                document.querySelector('.conclusion-section').scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('conclusion-target').scrollIntoView({ behavior: 'smooth' });
             } else {
                 switchTab(nextIndex);
             }
         }
 
-        function openModal() { document.getElementById('serranitoModal').classList.add('open'); }
-        function closeModal(e) { if (e.target.id === 'serranitoModal') closeModalDirect(); }
-        function closeModalDirect() { document.getElementById('serranitoModal').classList.remove('open'); }
+        // --- LÓGICA DEL MODAL ---
+        function openModal() {
+            document.getElementById('serranitoModal').classList.add('open');
+        }
+        function closeModal(e) {
+            if (e.target.id === 'serranitoModal') {
+                document.getElementById('serranitoModal').classList.remove('open');
+            }
+        }
+        function closeModalDirect() {
+            document.getElementById('serranitoModal').classList.remove('open');
+        }
 
+        // INICIAR
         loadHeader();
         loadAllContent();
     </script>
