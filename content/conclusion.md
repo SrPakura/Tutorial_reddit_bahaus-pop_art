@@ -1,0 +1,1 @@
+Hasta aquí el tutorial, si tenéis más dudas, preguntadle s gemini o chatgpt, que a mi no me pagáis lo suficiente (ni en general). Si sois andaluces o mexicanos, en tal caso me podéis preguntar todo lo que queráis.
