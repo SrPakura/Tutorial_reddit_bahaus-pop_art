@@ -1,7 +1,9 @@
 ## 4\. Estrategia "Hacker": Automatización con Python y Gemini
 
 ¿Queréis hacerlo de lujo y que el karma venga solo? Os presento a vuestros mejores amigos: **Python** y **Google AI Studio**.  
+
 Ojo, no hagáis automatización completa (bots 100%) porque Reddit (y cualquier página que se digne) lo detecta, y os banea desde la IP hasta el DNI. Haremos un sistema "Cyborg": la máquina busca, tú disparas.  
+
 **El flujo de trabajo:**
 
 1. **El Ojeador (Python \+ Gemini 2.5 Flash):**  
