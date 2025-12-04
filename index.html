@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Reddit: SrPakura Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        :root {
+            --c-red: #E63946; --c-black: #0D0D0D; --c-white: #F1FAEE;
+            --c-blue: #457B9D; --c-cyan: #A8DADC; --c-yellow: #FFD60A;
+            --font-main: 'Nunito', sans-serif;
+            --noise-bg: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--c-white);
+            color: var(--c-black);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::after {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: var(--noise-bg); pointer-events: none; z-index: 9999;
+        }
+
+        /* --- WRAPPER PARA PANTALLA COMPLETA (HERO + MARQUEE) --- */
+        .full-screen-wrapper {
+            height: 100vh; /* Ocupa el 100% de la altura de la ventana */
+            display: flex;
+            flex-direction: column;
+            border-bottom: 5px solid var(--c-black);
+        }
+
+        /* --- MARQUEE --- */
+        .marquee-container {
+            background: var(--c-black);
+            color: var(--c-yellow);
+            padding: 12px 0;
+            border-bottom: 5px solid var(--c-red);
+            white-space: nowrap;
+            overflow: hidden;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            flex-shrink: 0; /* No se encoge */
+        }
+
+        .marquee-text {
+            display: inline-block;
+            animation: scroll-left 60s linear infinite; /* Velocidad ajustada */
+        }
+
+        .marquee-text span {
+            margin-right: 60px; /* Separación pedida */
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- HERO --- */
+        .hero {
+            flex-grow: 1; /* Ocupa todo el espacio restante */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            background: var(--c-white);
+        }
+
+        .hero-visual {
+            background-color: var(--c-red);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-left: 5px solid var(--c-black);
+        }
+
+        .hero-text {
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 5vw, 6rem);
+            line-height: 0.9;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            text-shadow: 6px 6px 0 var(--c-cyan);
+        }
+
+        .subtitle-box {
+            background: var(--c-black);
+            color: var(--c-white);
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transform: skewX(-10deg);
+            border-left: 15px solid var(--c-yellow);
+            display: inline-block;
+            box-shadow: 10px 10px 0 rgba(0,0,0,0.2);
+        }
+
+        /* --- FORMAS --- */
+        .shape-circle {
+            width: 350px; height: 350px;
+            background: var(--c-yellow);
+            border-radius: 50%;
+            border: 4px solid var(--c-black);
+            position: absolute;
+            box-shadow: 15px 15px 0 var(--c-black);
+        }
+        .shape-triangle {
+            width: 0; height: 0;
+            border-left: 120px solid transparent;
+            border-right: 120px solid transparent;
+            border-bottom: 240px solid var(--c-cyan);
+            position: absolute;
+            bottom: 10%; right: 10%;
+            transform: rotate(-15deg);
+            filter: drop-shadow(10px 10px 0 var(--c-black));
+        }
+
+        /* --- NAVEGACIÓN --- */
+        .nav-wrapper {
+            background: var(--c-yellow);
+            padding: 2rem 0 0 0;
+            border-bottom: 5px solid var(--c-black);
+            border-top: 5px solid var(--c-black);
+            overflow-x: auto;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 10px;
+            padding: 0 20px;
+            min-width: max-content;
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            font-family: var(--font-main);
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            background: var(--c-white);
+            border: 4px solid var(--c-black);
+            border-bottom: none;
+            cursor: pointer;
+            transition: 0.2s;
+            position: relative;
+            top: 4px;
+        }
+
+        .tab-btn:hover { background: var(--c-cyan); transform: translateY(-5px); }
+        .tab-btn.active {
+            background: var(--c-black);
+            color: var(--c-white);
+            padding-bottom: 20px;
+            transform: translateY(-5px);
+            box-shadow: 0 -5px 0 var(--c-red);
+        }
+
+        /* --- CONTENIDO --- */
+        .content-area {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            min-height: 50vh;
+        }
+
+        .intro-container {
+            font-size: 1.3rem;
+            padding: 2rem;
+            border: 4px solid var(--c-black);
+            margin: 4rem auto;
+            max-width: 900px;
+            background: #fff;
+            box-shadow: 10px 10px 0 var(--c-blue);
+            transform: rotate(-1deg);
+        }
+
+        .conclusion-container {
+            font-size: 1.3rem;
+            padding: 2rem;
+            border: 4px solid var(--c-black);
+            margin: 4rem auto;
+            max-width: 900px;
+            background: var(--c-cyan);
+            box-shadow: 10px 10px 0 var(--c-black);
+        }
+
+        .section-content { display: none; animation: slide-up 0.4s ease-out forwards; }
+        .section-content.active { display: block; }
+        @keyframes slide-up { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- ESTILOS MARKDOWN --- */
+        /* Títulos Rojos */
+        .md-content h2 {
+            font-size: 2.5rem;
+            background: var(--c-red);
+            color: var(--c-white);
+            padding: 10px 20px;
+            display: inline-block;
+            margin: 2rem 0 1.5rem 0;
+            box-shadow: 8px 8px 0 var(--c-black);
+            transform: rotate(-1deg);
+            font-weight: 900;
+            border: 2px solid var(--c-black);
+        }
+
+        /* Subtítulos */
+        .md-content h3 {
+            font-size: 1.8rem;
+            margin-top: 1.5rem;
+            border-bottom: 4px solid var(--c-yellow);
+            display: inline-block;
+        }
+
+        /* Texto normal */
+        .md-content p {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Listas */
+        .md-content ul, .md-content ol {
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        .md-content li { margin-bottom: 0.8rem; }
+
+        /* Negrita (Amarillo) */
+        .md-content strong {
+            background: linear-gradient(120deg, var(--c-yellow) 0%, var(--c-yellow) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+            padding: 0 2px;
+            font-weight: 800;
+        }
+
+        /* Bloques de Código */
+        .md-content pre {
+            background: var(--c-white);
+            border: 3px solid var(--c-black);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 8px 8px 0 var(--c-black);
+            overflow-x: auto;
+        }
+        .md-content code {
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            color: var(--c-blue);
+        }
+
+        /* Links */
+        .md-content a {
+            color: var(--c-red);
+            font-weight: 900;
+            text-decoration: none;
+            border-bottom: 3px solid var(--c-black);
+        }
+        .md-content a:hover {
+            background: var(--c-black);
+            color: var(--c-white);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--c-black);
+            color: var(--c-white);
+            text-align: center;
+            padding: 5rem 1rem;
+            border-top: 10px solid var(--c-red);
+        }
+
+        .btn-next {
+            display: block; width: 100%; padding: 20px; margin-top: 3rem;
+            background: var(--c-white); border: 4px solid var(--c-black);
+            font-weight: 900; font-size: 1.5rem; cursor: pointer;
+            box-shadow: 8px 8px 0 var(--c-black); text-transform: uppercase;
+            transition: 0.2s;
+        }
+        .btn-next:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0 var(--c-cyan);
+            background: var(--c-black); color: var(--c-white);
+        }
+
+        /* Modal y otros helpers */
+        .watermark {
+            margin-top: 3rem; font-size: 1.2rem; font-weight: 900;
+            letter-spacing: 2px; opacity: 0.7; text-transform: uppercase;
+            color: var(--c-cyan); font-family: monospace; border: 2px dashed var(--c-cyan);
+            display: inline-block; padding: 0.5rem 1rem; transform: rotate(-2deg);
+        }
+
+        @media (max-width: 768px) {
+            .hero { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+            .hero-visual { height: 100%; border-left: none; border-top: 5px solid var(--c-black); order: -1; }
+            h1 { font-size: 3rem; }
+            .nav-tabs { justify-content: flex-start; }
+            .full-screen-wrapper { height: auto; min-height: 100vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="full-screen-wrapper">
+        <div class="marquee-container">
+            <div class="marquee-text" id="marquee-content">
+                <span>CARGANDO FRASES...</span>
+            </div>
+        </div>
+
+        <header class="hero">
+            <div class="hero-text">
+                <h1>Guía de<br>Supervivencia<br><span style="color:var(--c-red)">Reddit</span></h1>
+                <div class="subtitle-box">
+                    DE NORMIE A REDDITOR EN 30 MINUTOS
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="shape-circle"></div>
+                <div class="shape-triangle"></div>
+            </div>
+        </header>
+    </div>
+
+    <div id="intro-target" class="md-content">
+        </div>
+
+    <nav class="nav-wrapper">
+        <ul class="nav-tabs">
+            <li class="tab-btn active" onclick="switchTab(0)">1. ¿Qué es?</li>
+            <li class="tab-btn" onclick="switchTab(1)">2. Vocabulario</li>
+            <li class="tab-btn" onclick="switchTab(2)">3. Karma</li>
+            <li class="tab-btn" onclick="switchTab(3)">4. Hacker</li>
+            <li class="tab-btn" onclick="switchTab(4)">5. Reglas</li>
+            <li class="tab-btn" onclick="switchTab(5)">6. Netnografía</li>
+        </ul>
+    </nav>
+
+    <main class="content-area md-content" id="main-container">
+        </main>
+
+    <div id="conclusion-target" class="md-content">
+        </div>
+
+    <footer>
+        <button class="btn-next" id="btn-next-action" onclick="nextSection()">Siguiente Sección ➔</button>
+        
+        <div style="margin-top: 4rem;">
+            <div class="watermark">/// DESIGN BY SRPAKURA & GEMINI ///</div>
+        </div>
+    </footer>
+
+    <script>
+        // CONFIGURACIÓN DE ARCHIVOS
+        // Asegúrate de que los nombres de archivo sean EXACTOS a los que subas
+        const config = {
+            header: 'content/header.md',
+            intro: 'content/introduccion.md',
+            sections: [
+                'content/seccion1.md',
+                'content/seccion2.md',
+                'content/seccion3.md',
+                'content/seccion4.md',
+                'content/seccion5.md',
+                'content/seccion6.md'
+            ],
+            conclusion: 'content/conclusion.md'
+        };
+
+        let currentTab = 0;
+        const tabs = document.querySelectorAll('.tab-btn');
+        const mainContainer = document.getElementById('main-container');
+        let sectionDivs = []; // Guardará referencia a los 6 divs
+
+        // --- 1. CARGADOR DEL HEADER (Marquee) ---
+        async function loadHeader() {
+            try {
+                const response = await fetch(config.header);
+                if (!response.ok) throw new Error('Error header');
+                const text = await response.text();
+                
+                // Dividir por líneas y quitar vacías
+                const lines = text.split('\n').filter(line => line.trim() !== '');
+                
+                const marqueeDiv = document.getElementById('marquee-content');
+                marqueeDiv.innerHTML = ''; // Limpiar "Cargando..."
+
+                // Creamos el HTML duplicado para el efecto loop infinito
+                let htmlContent = '';
+                // Hacemos 2 pasadas para asegurar que llene la pantalla
+                for(let i=0; i<2; i++) { 
+                    lines.forEach(line => {
+                        htmlContent += `<span>${line.trim()}</span>`;
+                    });
+                }
+                marqueeDiv.innerHTML = htmlContent;
+
+            } catch (e) { console.error("Fallo header:", e); }
+        }
+
+        // --- 2. CARGADOR DE CONTENIDO GENERAL ---
+        async function loadAllContent() {
+            // A. Cargar Intro
+            fetchAndRender(config.intro, 'intro-target', 'intro-container');
+            
+            // B. Cargar Conclusión
+            fetchAndRender(config.conclusion, 'conclusion-target', 'conclusion-container');
+
+            // C. Cargar Secciones (Pestañas)
+            for (let i = 0; i < config.sections.length; i++) {
+                try {
+                    const res = await fetch(config.sections[i]);
+                    const text = await res.text();
+                    const html = marked.parse(text);
+                    
+                    const div = document.createElement('div');
+                    div.classList.add('section-content');
+                    if (i === 0) div.classList.add('active'); // Activar primera
+                    div.innerHTML = html;
+                    
+                    mainContainer.appendChild(div);
+                    sectionDivs.push(div);
+                } catch (e) {
+                    console.error(`Error loading section ${i}`, e);
+                }
+            }
+        }
+
+        // Helper para fetch simple
+        async function fetchAndRender(url, targetId, containerClass) {
+            try {
+                const res = await fetch(url);
+                const text = await res.text();
+                const html = marked.parse(text);
+                const target = document.getElementById(targetId);
+                target.innerHTML = `<div class="${containerClass}">${html}</div>`;
+            } catch (e) { console.error("Error loading " + url, e); }
+        }
+
+        // --- 3. LÓGICA DE PESTAÑAS ---
+        function switchTab(index) {
+            tabs.forEach(t => t.classList.remove('active'));
+            tabs[index].classList.add('active');
+
+            sectionDivs.forEach(s => s.classList.remove('active'));
+            if(sectionDivs[index]) sectionDivs[index].classList.add('active');
+
+            currentTab = index;
+            
+            // Scroll suave a las pestañas si estamos abajo
+            const nav = document.querySelector('.nav-wrapper');
+            if (window.scrollY > nav.offsetTop) {
+                nav.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function nextSection() {
+            let nextIndex = currentTab + 1;
+            if (nextIndex >= config.sections.length) {
+                // Si llegamos al final, scroll al footer o conclusión
+                document.getElementById('conclusion-target').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                switchTab(nextIndex);
+            }
+        }
+
+        // --- INICIAR ---
+        loadHeader();
+        loadAllContent();
+
+    </script>
+</body>
+</html>
